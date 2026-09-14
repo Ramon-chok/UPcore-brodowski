@@ -11,7 +11,7 @@ import { scrollToTop } from "../lib/scroll";
 
 export function LogoMark({ className }: { className?: string }) {
   return (
-    <img src="/public/images/Up Logo.png" alt="UpCore Brodowski Logo" className={cn("h-9 w-9", className)} />
+    <img src="/images/Logo UpCore.png" alt="UpCore Brodowski Logo" className={cn("h-9 w-9", className)} />
   );
 }
 
