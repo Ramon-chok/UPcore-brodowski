@@ -106,80 +106,103 @@ export default function Navbar() {
         </div>
       </motion.header>
 
-      {/* Menu mobile imersivo */}
+      {/* Menu lateral responsivo (Sidebar) */}
       <AnimatePresence>
         {open && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.35 }}
-            className="fixed inset-0 z-[90] flex flex-col bg-void/95 backdrop-blur-2xl lg:hidden"
-          >
-            <div className="pointer-events-none absolute -top-32 right-0 h-96 w-96 rounded-full bg-up-600/25 blur-[130px]" />
-            <div className="flex h-20 items-center justify-between px-5 md:px-10">
-              <Logo onClick={() => setOpen(false)} />
-              <button
-                type="button"
-                onClick={() => setOpen(false)}
-                aria-label="Fechar menu"
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-mist hover:border-up-500/60"
-              >
-                <X className="h-5 w-5" />
-              </button>
-            </div>
-
-            <nav className="flex flex-1 flex-col justify-center gap-1 px-8" aria-label="Menu">
-              {LINKS.map((link, i) => (
-                <motion.a
-                  key={link.href}
-                  href={link.href}
-                  onClick={go(link.href)}
-                  initial={{ opacity: 0, y: 40 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.08 * i + 0.1, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                  className="group flex items-baseline gap-4 border-b hairline py-4"
-                >
-                  <span className="label-mono text-[10px] text-up-400">
-                    0{i + 1}
-                  </span>
-                  <span className="h-display text-[11vw] leading-none text-mist transition-colors group-hover:text-white sm:text-5xl">
-                    {link.label.toUpperCase()}
-                  </span>
-                </motion.a>
-              ))}
-            </nav>
-
+          <>
+            {/* Backdrop / Fundo escurecido que fecha o menu ao clicar fora */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.6 }}
-              className="space-y-4 px-8 pb-10"
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              onClick={() => setOpen(false)}
+              className="fixed inset-0 z-[90] bg-void/60 backdrop-blur-md lg:hidden"
+            />
+
+            {/* Container do Menu Lateral */}
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "tween", duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="fixed inset-y-0 right-0 z-[100] flex h-full w-full flex-col justify-between border-l border-white/10 bg-void/95 p-6 shadow-2xl backdrop-blur-2xl sm:max-w-[400px] md:p-8 lg:hidden"
             >
-              <Label>Inauguração — {academy.openingDateShort}</Label>
-              <div className="flex items-center justify-between gap-4">
-                <GlowButton
-                  href={cta}
-                  onClick={ctaIsAnchor ? () => { setOpen(false); scrollToTarget("#contato"); } : undefined}
-                  external={!ctaIsAnchor}
-                  size="md"
+              {/* Efeito luminoso de fundo no topo do menu */}
+              <div className="pointer-events-none absolute -right-10 -top-20 h-72 w-72 rounded-full bg-up-600/20 blur-[100px]" />
+
+              {/* Topo do Menu Lateral */}
+              <div className="relative z-10 flex items-center justify-between">
+                <Logo onClick={() => setOpen(false)} />
+                <button
+                  type="button"
+                  onClick={() => setOpen(false)}
+                  aria-label="Fechar menu"
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-mist transition-colors hover:border-up-500/60 hover:text-white"
                 >
-                  Quero conhecer
-                </GlowButton>
-                {instagramUrl && (
-                  <a
-                    href={instagramUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Instagram da UpCore Brodowski"
-                    className="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 text-mist"
-                  >
-                    <InstagramIcon className="h-5 w-5" />
-                  </a>
-                )}
+                  <X className="h-5 w-5" />
+                </button>
               </div>
+
+              {/* Links de Navegação */}
+              <nav className="relative z-10 my-auto flex flex-col gap-1 py-8" aria-label="Menu">
+                {LINKS.map((link, i) => (
+                  <motion.a
+                    key={link.href}
+                    href={link.href}
+                    onClick={go(link.href)}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.05 * i + 0.1, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                    className="group flex items-baseline gap-4 border-b border-white/5 py-4 transition-colors hover:border-white/10"
+                  >
+                    <span className="label-mono text-[9px] text-up-400">
+                      0{i + 1}
+                    </span>
+                    <span className="h-display text-3xl font-medium leading-none text-mist transition-colors group-hover:text-white sm:text-4xl">
+                      {link.label.toUpperCase()}
+                    </span>
+                  </motion.a>
+                ))}
+              </nav>
+
+              {/* Rodapé do Menu Lateral */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className="relative z-10 space-y-5"
+              >
+                <div className="border-t border-white/5 pt-5">
+                  <Label className="text-[10px] tracking-widest text-silver">
+                    Inauguração — {academy.openingDateShort}
+                  </Label>
+                </div>
+                <div className="flex items-center justify-between gap-4">
+                  <GlowButton
+                    href={cta}
+                    onClick={ctaIsAnchor ? () => { setOpen(false); scrollToTarget("#contato"); } : undefined}
+                    external={!ctaIsAnchor}
+                    size="md"
+                    className="w-full justify-center"
+                  >
+                    Quero conhecer
+                  </GlowButton>
+                  {instagramUrl && (
+                    <a
+                      href={instagramUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Instagram da UpCore Brodowski"
+                      className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/10 text-mist transition-colors hover:border-up-500/60 hover:text-white"
+                    >
+                      <InstagramIcon className="h-5 w-5" />
+                    </a>
+                  )}
+                </div>
+              </motion.div>
             </motion.div>
-          </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>
