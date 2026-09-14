@@ -139,7 +139,7 @@ export default function Footer() {
         {/* barra final */}
         <div className="mt-16 flex flex-col items-center justify-between gap-5 border-t hairline pt-7 md:flex-row">
           <p className="label-mono text-[8px] text-ash">
-            © 2026 {academy.legalName.toUpperCase()}. TODOS OS DIREITOS RESERVADOS.
+            © 2026 <a href="https://rrmind.tech" target="_blank" rel="noopener noreferrer">{academy.legalName.toUpperCase()}</a>. TODOS OS DIREITOS RESERVADOS.
           </p>
           <p className="label-mono text-[8px] text-ash">BRODOWSKI — SP — BRASIL</p>
           <button
