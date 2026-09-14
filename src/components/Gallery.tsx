@@ -37,7 +37,7 @@ const ITEMS: GalleryItem[] = [
     className: "row-span-2 md:col-span-4",
   },
   {
-    src: "/images/facade.jpg",
+    src: "/images/Fachada.jpeg",
     alt: "Fachada da UpCore Brodowski",
     tag: "A CASA",
     className: "col-span-2 row-span-2 md:col-span-4",
